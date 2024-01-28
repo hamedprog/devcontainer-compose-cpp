@@ -1,0 +1,34 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json
+
+x-default-logging: &logging
+  driver: json-file
+  options:
+    max-file: 2
+    max-size: 5m
+
+services:
+  devcontainer:
+    build:
+      context: ./.devcontainer/
+    # command: []
+    container_name: devcontainer
+    # depends_on: []
+    # entrypoint: []
+    # environment: []
+    # expose: []
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    # healthcheck: {}
+    # image: ""
+    labels:
+      namespace: devcontainer
+    logging: *logging
+    # platform: linux/amd64
+    # ports: []
+    restart: "no"
+    # volumes: []
+    # working_dir: ""
+
+version: "3.9"
+# volumes:
+#   devcontainer: {}

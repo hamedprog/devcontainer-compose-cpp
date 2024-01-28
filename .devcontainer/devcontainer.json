@@ -1,0 +1,59 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cmake-tools"
+      ]
+    }
+  },
+  "dockerComposeFile": "${localWorkspaceFolder}/compose.yaml",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0.0.4": {
+      "omzPlugins": "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+      "plugins": "docker zsh-syntax-highlighting",
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2.4.1": {
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "installZsh": true,
+      "nonFreePackages": false,
+      "upgradePackages": true,
+      "userGid": "1000",
+      "username": "vscode",
+      "userUid": "1000"
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1.3.2": {
+      "dockerDashComposeVersion": "v2",
+      "installDockerBuildx": true,
+      "moby": true,
+      "version": "24.0.7"
+    },
+    "ghcr.io/devcontainers/features/git:1.1.6": {
+      "ppa": "true",
+      "version": "2.43.0"
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.zsh_history,target=/home/vscode/.zsh_history,type=bind",
+    "source=${localWorkspaceFolder}/,target=${containerWorkspaceFolder}/,type=bind"
+  ],
+  "name": "C++",
+  "overrideCommand": false,
+  "postCreateCommand": {
+    "gi": "echo \"\\nfunction gi() { curl --fail --location --show-error --silent --write-out \\\"\\\\\\n\\\" https://www.toptal.com/developers/gitignore/api/\\$@; }\" >> ~/.zshrc",
+    "prompt": "echo \"\\nPROMPT='%{\\$fg[yellow]%}[%*] '\\$PROMPT\"  >> ~/.zshrc",
+    "sudo-git-config": "sudo git config --system --add safe.directory ${containerWorkspaceFolder}"
+  },
+  "remoteUser": "vscode",
+  "securityOpt": ["seccomp=unconfined"],
+  "service": "devcontainer",
+  "shutdownAction": "stopCompose",
+  "workspaceFolder": "/workspace"
+}
