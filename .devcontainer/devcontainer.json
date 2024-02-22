@@ -7,29 +7,36 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-vscode.cpptools",
-        "ms-vscode.cmake-tools"
+				"eamodio.gitlens",
+				"esbenp.prettier-vscode",
+				"GitHub.vscode-pull-request-github",
+				"IBM.output-colorizer",
+				"ms-azuretools.vscode-docker",
+				"ms-kubernetes-tools.kind-vscode",
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.cpptools",
+				"PascalReitermann93.vscode-yaml-sort",
+				"redhat.vscode-yaml",
+				"richie5um2.vscode-sort-json",
+				"streetsidesoftware.code-spell-checker",
+				"Tyriar.sort-lines",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"vscode-icons-team.vscode-icons",
+				"WakaTime.vscode-wakatime"
       ]
     }
   },
   "dockerComposeFile": "${localWorkspaceFolder}/compose.yaml",
   "features": {
-    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0.0.4": {
-      "omzPlugins": "https://github.com/zsh-users/zsh-syntax-highlighting.git",
-      "plugins": "docker zsh-syntax-highlighting",
-      "username": "vscode"
-    },
     "ghcr.io/devcontainers/features/common-utils:2.4.1": {
-      "configureZshAsDefaultShell": true,
-      "installOhMyZsh": true,
-      "installZsh": true,
       "nonFreePackages": false,
-      "upgradePackages": true,
       "userGid": "1000",
       "username": "vscode",
       "userUid": "1000"
     },
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1.3.2": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1.4.0": {
       "dockerDashComposeVersion": "v2",
       "installDockerBuildx": true,
       "moby": true,
@@ -38,15 +45,22 @@
     "ghcr.io/devcontainers/features/git:1.1.6": {
       "ppa": "true",
       "version": "2.43.0"
-    }
+    },
+		"ghcr.io/devcontainers/features/powershell:1": {
+			"modules": "PSReadLine, Terminal-Icons"
+		}
   },
   "mounts": [
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.wakatime.cfg,target=/home/vscode/.wakatime.cfg,type=bind,consistency=delegated",
     "source=${localEnv:HOME}${localEnv:USERPROFILE}/.zsh_history,target=/home/vscode/.zsh_history,type=bind",
+    "source=${localEnv:USERPROFILE}/AppData/Roaming/Microsoft/Windows/PowerShell/PSReadLine/ConsoleHost_history.txt,target=/home/vscode/.local/share/powershell/PSReadLine/ConsoleHost_history.txt,type=bind",
     "source=${localWorkspaceFolder}/,target=${containerWorkspaceFolder}/,type=bind"
   ],
   "name": "C++",
   "overrideCommand": false,
   "postCreateCommand": {
+		"install-ohmyposh": "curl -s https://ohmyposh.dev/install.sh | sudo bash -s  ",
+		"powershell-profile": "curl https://raw.githubusercontent.com/hamedprog/hamedprog/main/my_terminal/Microsoft.PowerShell_profile.ps1 --create-dirs --output /home/vscode/.config/powershell/profile.ps1",
     "gi": "echo \"\\nfunction gi() { curl --fail --location --show-error --silent --write-out \\\"\\\\\\n\\\" https://www.toptal.com/developers/gitignore/api/\\$@; }\" >> ~/.zshrc",
     "prompt": "echo \"\\nPROMPT='%{\\$fg[yellow]%}[%*] '\\$PROMPT\"  >> ~/.zshrc",
     "sudo-git-config": "sudo git config --system --add safe.directory ${containerWorkspaceFolder}"
